@@ -19,13 +19,9 @@ export default {
 		this.$store.dispatch('loginLocal');
 	},
 	methods: {
-		async getPolls() {
-			try {
-				console.log('App created');
-				let response = await axios.get('/public-polls');
-				this.$store.dispatch('setPolls', response.data);
-				this.isLoading = false;
-			} catch (error) {}
+		getPolls() {
+			console.log('App created');
+			this.dispatch('getPolls');
 		}
 	}
 };

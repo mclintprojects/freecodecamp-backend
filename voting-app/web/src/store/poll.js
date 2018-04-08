@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const state = {
   polls: []
 };
@@ -23,6 +25,14 @@ const actions = {
   },
   addPoll(context, poll) {
     context.commit('addPoll', poll);
+  },
+  async getPolls(context) {
+    try {
+      context.dispatch('setLoading', true);
+      let response = await axios.get('/public-polls');
+      context.dispatch('setPolls', response.data);
+      context.dispatch('setLoading', false);
+    } catch (error) {}
   }
 };
 

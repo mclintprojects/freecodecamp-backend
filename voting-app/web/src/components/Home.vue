@@ -36,7 +36,7 @@ export default {
 			return this.$store.getters.polls;
 		},
 		isLoading() {
-			return this.polls.length == 0;
+			return this.$store.getters.isLoading;
 		}
 	},
 	methods: {
@@ -50,6 +50,9 @@ export default {
 		newPoll() {
 			this.$router.push({ name: 'new-poll' });
 		}
+	},
+	activated() {
+		this.$store.dispatch('getPolls');
 	}
 };
 </script>

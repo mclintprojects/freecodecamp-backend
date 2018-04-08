@@ -3,6 +3,7 @@
       <loader :isLoading="isLoading"></loader>
       <br>
       <div class="container" v-if="poll != null">
+		<button class="app-btn app-btn-delete" style="margin: 0 auto; float: right;" v-if="isAuthor" @click="deletePoll" :disabled="isLoading">Delete poll</button>
         <p id="lbl-question">{{poll.question}}</p>
         <div class="poll-details">
         <p class="text-small text-secondary">by {{poll.author}}</p>
@@ -42,6 +43,9 @@ export default {
 	computed: {
 		polls() {
 			return this.$store.getters.polls;
+		},
+		isAuthor() {
+			return this.$store.getters.email === this.poll.author;
 		}
 	},
 	watch: {
@@ -107,6 +111,19 @@ export default {
 		},
 		getPollColors() {
 			return ['teal', 'tomato', 'lawngreen', 'indianred', 'darkgreen', 'slate'];
+		},
+		async deletePoll() {
+			this.isLoading = true;
+			try {
+				let response = await axios.delete(`/polls/${this.poll._id}`);
+
+				eventbus.showToast('Deleting poll failed. Please retry.', 'error');
+				this.$router.go(-1);
+			} catch (error) {
+				console.log(error);
+				eventbus.showToast('Deleting poll failed. Please retry.', 'error');
+			}
+			this.isLoading = false;
 		}
 	},
 	activated() {
@@ -133,5 +150,8 @@ export default {
 #chart-container {
 	margin-top: 40px;
 	margin-bottom: 40px;
+}
+.app-btn-delete {
+	background-color: tomato;
 }
 </style>
