@@ -1,17 +1,15 @@
 <template>
     <div class="container">
 		<loader :isLoading="isLoading"></loader>
-        <div class="form-group ">
+        <div class="form-group">
             <label for="emailTb ">Email address</label>
-            <input v-model="formData.email" id="emailTb" type="email" class="form-control " placeholder="Enter email ">
+            <input v-model="formData.email" id="emailTb" type="email" class="form-control" placeholder="Enter email">
         </div>
-        <div class="form-group ">
+        <div class="form-group">
             <label for="passwordTb ">Password</label>
-            <input v-model="formData.password" type="password" class="form-control " id="passwordTb " placeholder="Password ">
+            <input v-model="formData.password" type="password" class="form-control" id="passwordTb" placeholder="Password">
         </div>
-        <button @click="registerUser" class="appBtn" :disabled="this.$store.getters.isPerformingAction">Sign up</button>
-
-        <img v-if="this.$store.getters.isPerformingAction" id="loadingCircle" src="https://samherbert.net/svg-loaders/svg-loaders/oval.svg" />
+        <button @click="registerUser" class="appBtn" :disabled="this.$store.getters.isLoading">Sign up</button>
     </div>
 </template>
 
@@ -36,7 +34,7 @@ export default {
 		registerUser() {
 			this.$store.dispatch('setLoading', true);
 			if (this.formData.email.length > 0 && this.formData.password.length > 0) {
-				this.$store.dispatch('registerUser', this.formData);
+				this.$store.dispatch('register', this.formData);
 			} else {
 				eventbus.showToast('One or more required fields is empty.', 'error');
 			}
@@ -49,9 +47,7 @@ export default {
 		});
 
 		eventbus.$on('registration-failure', message => {
-			if (this.errorCodes.hasOwnProperty(message))
-				eventbus.showToast(this.errorCodes[message], 'error');
-			else eventbus.showToast(message, 'error');
+			eventbus.showToast(message, 'error');
 		});
 	}
 };

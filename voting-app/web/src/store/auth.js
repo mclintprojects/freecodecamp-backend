@@ -49,6 +49,20 @@ const actions = {
         eventbus.$emit('login-failure', error.response.data.error);
       });
   },
+  register(context, loginData) {
+    context.commit('setLoading', true);
+
+    axios
+      .post('/users', loginData)
+      .then(response => {
+        context.commit('login', loginData);
+        context.commit('setLoading', false);
+        eventbus.$emit('registration-success', 'Registration successful');
+      })
+      .catch(error => {
+        eventbus.$emit('registration-failure', error.response.data.error);
+      });
+  },
   setLoading(context, isLoading) {
     context.commit('setLoading', isLoading);
   }
