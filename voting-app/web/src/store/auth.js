@@ -33,6 +33,9 @@ const mutations = {
     state.email = loginData.email;
     state.token = loginData.token;
     state.id = loginData.id;
+    axios.defaults.headers.common['Authorization'] = `Bearer ${
+      loginData.token
+    }`;
 
     localStorage.setItem('auth', JSON.stringify(loginData));
   },

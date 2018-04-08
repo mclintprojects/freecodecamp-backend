@@ -9,14 +9,20 @@ const getters = {
 };
 
 const mutations = {
-  setPoll(state, polls) {
+  setPolls(state, polls) {
     state.polls = polls;
+  },
+  addPoll(state, poll) {
+    state.polls.push(poll);
   }
 };
 
 const actions = {
-  setPoll(context, polls) {
-    context.commit('setPoll', polls);
+  setPolls(context, polls) {
+    context.commit('setPolls', polls);
+  },
+  addPoll(context, poll) {
+    context.commit('addPoll', poll);
   }
 };
 

@@ -67,7 +67,6 @@ export default {
 				this.totalVotes = this.options.reduce(
 					(prev, next) => prev.votes + next.votes
 				);
-				this.isLoading = false;
 
 				this.showChart();
 			} catch (error) {
@@ -95,6 +94,8 @@ export default {
 					labels: this.getPollLabels()
 				}
 			});
+
+			this.isLoading = false;
 		},
 		getPollLabels() {
 			let result = [];
@@ -110,9 +111,9 @@ export default {
 	},
 	activated() {
 		this.ready();
+		this.isLoading = true;
 
 		eventbus.$on('optionVotedFor', index => {
-			console.log(this.options);
 			let option = this.options[index];
 			option.votes++;
 			this.showChart();

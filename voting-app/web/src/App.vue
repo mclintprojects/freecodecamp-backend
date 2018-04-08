@@ -22,8 +22,8 @@ export default {
 		async getPolls() {
 			try {
 				console.log('App created');
-				let response = await axios.get('/polls');
-				this.$store.dispatch('setPoll', response.data);
+				let response = await axios.get('/public-polls');
+				this.$store.dispatch('setPolls', response.data);
 				this.isLoading = false;
 			} catch (error) {}
 		}
@@ -67,5 +67,6 @@ body {
 
 .app-btn:disabled {
 	background-color: #4a5f68;
+	cursor: not-allowed;
 }
 </style>

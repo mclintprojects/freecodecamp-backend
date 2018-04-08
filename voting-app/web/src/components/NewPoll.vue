@@ -11,7 +11,7 @@
                 <p class="text-small">Add atleast 2 options</p>
             </div>
             <div class="col-xs-4">
-                <button id="btn-add-option" class="app-btn" @click="addNewOption">Add new option</button>
+                <button id="btn-add-option" class="app-btn" @click="addNewOption" :disabled="isLoading">Add new option</button>
             </div>
         </div>
         <ul class="list-group">
@@ -22,7 +22,7 @@
                 </div>
             </li>
         </ul>
-        <button class="app-btn" @click="createPoll">Create poll</button>
+        <button class="app-btn" @click="createPoll" :disabled="isLoading">Create poll</button>
       </div>
   </div>
 </template>
@@ -30,6 +30,7 @@
 <script>
 import Loader from './Loader';
 import axios from 'axios';
+import eventbus from '../eventbus';
 
 export default {
 	data() {
@@ -43,6 +44,9 @@ export default {
 	computed: {
 		isLoading() {
 			return this.$store.getters.isLoading;
+		},
+		author() {
+			return this.$store.getters.email;
 		}
 	},
 	methods: {
@@ -61,7 +65,31 @@ export default {
 			this.options.splice(index, 1);
 		},
 		async createPoll() {
-			let response = axios.post({});
+			if (
+				this.question.length > 0 &&
+				this.options[0].length > 0 &&
+				this.options[1].length > 0
+			) {
+				this.$store.dispatch('setLoading', true);
+				try {
+					let response = await axios.post('polls', {
+						question: this.question,
+						author: this.author,
+						options: this.options
+					});
+
+					this.store.dispatch('addPoll', response.data);
+					eventbus.showToast('Poll successfully created.', 'success');
+					this.$router.go(-1);
+				} catch (error) {
+					eventbus.showToast('Poll creation failed. Please retry.', 'error');
+					console.log(error);
+				}
+
+				this.$store.dispatch('setLoading', false);
+			} else {
+				eventbus.showToast('One or more required fields is empty.', 'error');
+			}
 		}
 	}
 };
