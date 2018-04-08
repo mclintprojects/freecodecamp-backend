@@ -65,4 +65,52 @@ body {
 	background-color: #4a5f68;
 	cursor: not-allowed;
 }
+
+.app-btn-tweet {
+	background-color: skyblue;
+}
+
+a:hover {
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.poll-details {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+
+#lbl-question {
+	font-size: 30px;
+	font-weight: bold;
+}
+
+.text-small {
+	font-size: 12px;
+}
+
+.text-secondary {
+	color: var(--secondaryText);
+}
+
+.line-vertical {
+	border: 2px solid transparent;
+	border-right-color: var(--primaryText);
+	height: 16px;
+	margin: 0px 8px 0px 8px;
+}
+
+.empty-state {
+	position: fixed;
+	top: 50%;
+	left: 46%;
+	font-size: 18px;
+}
+
+@media screen and (max-width: 568px) {
+	.empty-state {
+		left: 30%;
+	}
+}
 </style>

@@ -65,6 +65,7 @@ const actions = {
       })
       .catch(error => {
         eventbus.$emit('login-failure', error.response.data.error);
+        context.commit('setLoading', false);
       });
   },
   loginLocal(context) {
@@ -80,12 +81,14 @@ const actions = {
     axios
       .post('/users', loginData)
       .then(response => {
+        console.log(response.data);
         context.commit('login', response.data);
         context.commit('setLoading', false);
         eventbus.$emit('registration-success', 'Registration successful');
       })
       .catch(error => {
         eventbus.$emit('registration-failure', error.response.data.error);
+        context.commit('setLoading', false);
       });
   },
   setLoading(context, isLoading) {

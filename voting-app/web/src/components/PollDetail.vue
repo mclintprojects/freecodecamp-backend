@@ -3,7 +3,8 @@
       <loader :isLoading="isLoading"></loader>
       <br>
       <div class="container" v-if="poll != null">
-		<button class="app-btn app-btn-delete" style="margin: 0 auto; float: right;" v-if="isAuthor" @click="deletePoll" :disabled="isLoading">Delete poll</button>
+		<button class="app-btn app-btn-delete" v-if="isAuthor" @click="deletePoll" :disabled="isLoading">Delete poll</button>
+		<a class="app-btn app-btn-tweet" :href="getShareLink()">Tweet poll</a>
         <p id="lbl-question">{{poll.question}}</p>
         <div class="poll-details">
         <p class="text-small text-secondary">by {{poll.author}}</p>
@@ -61,6 +62,11 @@ export default {
 		}
 	},
 	methods: {
+		getShareLink() {
+			return `https://twitter.com/intent/tweet?url=${window.location.origin}${
+				this.$route.fullPath
+			}`;
+		},
 		ready() {
 			if (this.polls.length > 0) {
 				let index = this.$route.params.id;

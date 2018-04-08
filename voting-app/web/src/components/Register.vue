@@ -1,20 +1,24 @@
 <template>
-    <div class="container">
-		<loader :isLoading="isLoading"></loader>
-        <div class="form-group">
-            <label for="emailTb ">Email address</label>
-            <input v-model="formData.email" id="emailTb" type="email" class="form-control" placeholder="Enter email">
-        </div>
-        <div class="form-group">
-            <label for="passwordTb ">Password</label>
-            <input v-model="formData.password" type="password" class="form-control" id="passwordTb" placeholder="Password">
-        </div>
-        <button @click="registerUser" class="appBtn" :disabled="this.$store.getters.isLoading">Sign up</button>
-    </div>
+	<div class="app-container">
+		<div class="container">
+			<loader :isLoading="isLoading"></loader>
+			<div class="form-group">
+				<label for="emailTb ">Email address</label>
+				<input v-model="formData.email" id="emailTb" type="email" class="form-control" placeholder="Enter email">
+			</div>
+			<div class="form-group">
+				<label for="passwordTb ">Password</label>
+				<input v-model="formData.password" type="password" class="form-control" id="passwordTb" placeholder="Password">
+			</div>
+			<button @click="registerUser" class="app-btn" :disabled="this.$store.getters.isLoading">Sign up</button>
+		</div>
+	</div>
+    
 </template>
 
 <script>
 import eventbus from '../eventbus';
+import Loader from './Loader';
 
 export default {
 	data() {
@@ -25,6 +29,7 @@ export default {
 			}
 		};
 	},
+	components: { Loader },
 	computed: {
 		isLoading() {
 			return this.$store.getters.isLoading;
