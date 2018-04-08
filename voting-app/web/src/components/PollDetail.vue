@@ -35,9 +35,7 @@ export default {
 	data() {
 		return {
 			isLoading: true,
-			poll: null,
-			options: [],
-			totalVotes: 0
+			poll: null
 		};
 	},
 	computed: {
@@ -46,11 +44,20 @@ export default {
 		},
 		isAuthor() {
 			return this.$store.getters.email === this.poll.author;
+		},
+		options() {
+			return this.$store.getters.options;
+		},
+		totalVotes() {
+			return this.$store.getters.totalVotes;
 		}
 	},
 	watch: {
 		polls() {
 			this.ready();
+		},
+		totalVotes() {
+			this.showChart();
 		}
 	},
 	methods: {
@@ -66,11 +73,13 @@ export default {
 		async getPollOptions(pollId) {
 			try {
 				let response = await axios.get(`/polls/${pollId}/options`);
-				this.options = response.data;
+				this.$store.dispatch('setOptions', response.data);
 
-				this.totalVotes = this.options.reduce(
+				let totalVotes = this.options.reduce(
 					(prev, next) => prev.votes + next.votes
 				);
+				console.log('Total votes: ' + totalVotes);
+				this.$store.dispatch('setTotalVotes', totalVotes);
 
 				this.showChart();
 			} catch (error) {
@@ -129,23 +138,11 @@ export default {
 	activated() {
 		this.ready();
 		this.isLoading = true;
-
-		eventbus.$on('optionVotedFor', index => {
-			let option = this.options[index];
-			option.votes++;
-			this.showChart();
-		});
-
-		eventbus.$on('optionVotingFailed', index => {
-			let option = this.options[index];
-			option.votes--;
-			this.showChart();
-		});
 	},
 	deactivated() {
 		this.poll = null;
-		this.options = [];
-		this.totalVotes = 0;
+		this.$store.dispatch('setOptions', []);
+		this.$store.dispatch('setTotalVotes', 0);
 	},
 	components: { loader: Loader, 'poll-option': PollOption }
 };

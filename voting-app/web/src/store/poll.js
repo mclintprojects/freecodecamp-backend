@@ -1,12 +1,20 @@
 import axios from 'axios';
 
 const state = {
-  polls: []
+  polls: [],
+  options: [],
+  totalVotes: 0
 };
 
 const getters = {
   polls: state => {
     return state.polls;
+  },
+  totalVotes: state => {
+    return state.totalVotes;
+  },
+  options: state => {
+    return state.options;
   }
 };
 
@@ -16,6 +24,12 @@ const mutations = {
   },
   addPoll(state, poll) {
     state.polls.push(poll);
+  },
+  setOptions(state, options) {
+    state.options = options;
+  },
+  setTotalVotes(state, totalVotes) {
+    state.totalVotes = totalVotes;
   }
 };
 
@@ -33,6 +47,12 @@ const actions = {
       context.dispatch('setPolls', response.data);
       context.dispatch('setLoading', false);
     } catch (error) {}
+  },
+  setOptions(context, options) {
+    context.commit('setOptions', options);
+  },
+  setTotalVotes(context, totalVotes) {
+    context.commit('setTotalVotes', totalVotes);
   }
 };
 

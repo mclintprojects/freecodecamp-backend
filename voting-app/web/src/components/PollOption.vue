@@ -31,10 +31,9 @@ export default {
 			return '0%';
 		},
 		async voteForOption() {
-			try {
-				eventbus.$emit('optionVotedFor', this.index);
-				this.getPercentage();
+			let votingSuccess = true;
 
+			try {
 				let response = await axios.post(
 					`/polls/${this.pollId}/options/${this.option._id}/vote`,
 					{}
@@ -43,7 +42,13 @@ export default {
 				eventbus.showToast('Vote successful', 'success');
 			} catch (error) {
 				eventbus.showToast(error.response.data.error, 'error');
-				eventbus.$emit('optionVotingFailed', this.index);
+				votingSuccess = false;
+			}
+
+			if (votingSuccess) {
+				this.$store.dispatch('setTotalVotes', this.totalVotes + 1);
+				this.option.votes++;
+				this.getPercentage();
 			}
 		}
 	}
