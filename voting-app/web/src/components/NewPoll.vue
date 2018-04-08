@@ -40,6 +40,11 @@ export default {
 			options: ['', '']
 		};
 	},
+	deactivated() {
+		this.question = '';
+		this.placeholders = [0, 0];
+		this.options = ['', ''];
+	},
 	components: { loader: Loader },
 	computed: {
 		isLoading() {
@@ -78,7 +83,7 @@ export default {
 						options: this.options
 					});
 
-					this.store.dispatch('addPoll', response.data);
+					this.$store.dispatch('addPoll', response.data);
 					eventbus.showToast('Poll successfully created.', 'success');
 					this.$router.go(-1);
 				} catch (error) {

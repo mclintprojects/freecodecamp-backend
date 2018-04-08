@@ -117,7 +117,7 @@ export default {
 			try {
 				let response = await axios.delete(`/polls/${this.poll._id}`);
 
-				eventbus.showToast('Deleting poll failed. Please retry.', 'error');
+				eventbus.showToast('Successfully deleted poll.', 'success');
 				this.$router.go(-1);
 			} catch (error) {
 				console.log(error);
@@ -141,6 +141,11 @@ export default {
 			option.votes--;
 			this.showChart();
 		});
+	},
+	deactivated() {
+		this.poll = null;
+		this.options = [];
+		this.totalVotes = 0;
 	},
 	components: { loader: Loader, 'poll-option': PollOption }
 };
