@@ -2,6 +2,7 @@ import Home from './components/Home';
 import PollDetail from './components/PollDetail';
 import Login from './components/Login';
 import Register from './components/Register';
+import NewPoll from './components/NewPoll';
 
 export const routes = [
   {
@@ -23,6 +24,11 @@ export const routes = [
     path: '/register',
     name: 'register',
     component: Register
+  },
+  {
+    path: '/polls/new',
+    name: 'new-poll',
+    component: NewPoll
   },
   {
     path: '*',

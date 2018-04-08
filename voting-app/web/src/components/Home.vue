@@ -4,6 +4,7 @@
     <div class="banner">
       <h1>Voting app</h1>
       <p>Below are the polls hosted on this app</p>
+			<button v-if="this.$store.getters.userLoggedIn" class="app-btn" @click="newPoll">New poll</button>
     </div>
     <div class="container">
       <ul class="list-group">
@@ -45,6 +46,9 @@ export default {
 		},
 		showDetail(index) {
 			this.$router.push({ name: 'poll-detail', params: { id: index } });
+		},
+		newPoll() {
+			this.$router.push('new-poll');
 		}
 	}
 };

@@ -41,7 +41,7 @@ const actions = {
     axios
       .post('/users/auth', loginData)
       .then(response => {
-        context.commit('login', loginData);
+        context.commit('login', response.data);
         context.commit('setLoading', false);
         eventbus.$emit('login-success', 'Login successful');
       })
@@ -55,7 +55,7 @@ const actions = {
     axios
       .post('/users', loginData)
       .then(response => {
-        context.commit('login', loginData);
+        context.commit('login', response.data);
         context.commit('setLoading', false);
         eventbus.$emit('registration-success', 'Registration successful');
       })
