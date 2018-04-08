@@ -4,6 +4,7 @@ import eventbus from '../eventbus';
 const state = {
   token: '',
   email: '',
+  id: '',
   userLoggedIn: false,
   isLoading: false
 };
@@ -11,6 +12,9 @@ const state = {
 const getters = {
   token: state => {
     return state.token;
+  },
+  id: state => {
+    return state.id;
   },
   userLoggedIn: state => {
     return state.userLoggedIn;
@@ -28,6 +32,9 @@ const mutations = {
     state.userLoggedIn = true;
     state.email = loginData.email;
     state.token = loginData.token;
+    state.id = loginData.id;
+
+    localStorage.setItem('auth', JSON.stringify(loginData));
   },
   setLoading(state, isLoading) {
     state.isLoading = isLoading;
@@ -48,6 +55,13 @@ const actions = {
       .catch(error => {
         eventbus.$emit('login-failure', error.response.data.error);
       });
+  },
+  loginLocal(context) {
+    let json = localStorage.getItem('auth');
+    if (json) {
+      let auth = JSON.parse(json);
+      context.dispatch('login', auth);
+    }
   },
   register(context, loginData) {
     context.commit('setLoading', true);

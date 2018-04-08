@@ -16,6 +16,7 @@ export default {
 	components: { navbar: Navbar },
 	created() {
 		this.getPolls();
+		this.$store.dispatch('loginLocal');
 	},
 	methods: {
 		async getPolls() {

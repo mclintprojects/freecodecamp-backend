@@ -48,7 +48,7 @@ export default {
 			this.$router.push({ name: 'poll-detail', params: { id: index } });
 		},
 		newPoll() {
-			this.$router.push('new-poll');
+			this.$router.push({ name: 'new-poll' });
 		}
 	}
 };
