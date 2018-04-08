@@ -9,7 +9,7 @@
           <ul class="list-group">
               <li v-for="(placeholder, index) in placeholders" :key="index">
                   <div class="option-tb">
-                    <input type="text" class="app-input" placeholder="Poll option" />
+                    <input type="text" class="app-input" placeholder="Poll option" v-model="options[index]"/>
                     <button class="app-btn" v-if="isRemovable(index)" @click="removeOption(index)">Remove</button>
                   </div>
               </li>
@@ -25,7 +25,7 @@ export default {
 		return {
 			question: '',
 			placeholders: [0, 0],
-			options: []
+			options: ['', '']
 		};
 	},
 	methods: {
@@ -36,10 +36,12 @@ export default {
 		},
 		addNewOption() {
 			console.log('pushing option');
+			this.options.push('');
 			this.placeholders.push(0);
 		},
 		removeOption(index) {
 			this.placeholders.splice(index, 1);
+			this.options.splice(index, 1);
 		}
 	}
 };
