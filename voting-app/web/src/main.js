@@ -18,6 +18,7 @@ const router = new VueRouter({
 });
 
 axios.defaults.baseURL = 'https://open-border.glitch.me';
+//axios.defaults.
 
 new Vue({
   el: '#app',
