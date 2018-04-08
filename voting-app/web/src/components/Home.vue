@@ -1,5 +1,6 @@
 <template>
   <div class="app-container">
+		<p class="empty-state" v-if="this.polls.length === 0">No polls added yet</p>
     <loader :isLoading="isLoading"></loader>
     <div class="banner">
       <h1>Voting app</h1>
@@ -103,5 +104,18 @@ export default {
 	border-right-color: var(--primaryText);
 	height: 16px;
 	margin: 0px 8px 0px 8px;
+}
+
+.empty-state {
+	position: fixed;
+	top: 50%;
+	left: 46%;
+	font-size: 18px;
+}
+
+@media screen and (max-width: 568px) {
+	.empty-state {
+		left: 30%;
+	}
 }
 </style>

@@ -41,6 +41,14 @@ const mutations = {
   },
   setLoading(state, isLoading) {
     state.isLoading = isLoading;
+  },
+  logout(state) {
+    state.userLoggedIn = false;
+    state.token = '';
+    state.id = '';
+    state.email = '';
+
+    localStorage.removeItem('auth');
   }
 };
 
@@ -82,6 +90,9 @@ const actions = {
   },
   setLoading(context, isLoading) {
     context.commit('setLoading', isLoading);
+  },
+  logout(context) {
+    context.commit('logout');
   }
 };
 

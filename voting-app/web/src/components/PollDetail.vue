@@ -75,10 +75,10 @@ export default {
 				let response = await axios.get(`/polls/${pollId}/options`);
 				this.$store.dispatch('setOptions', response.data);
 
-				let totalVotes = this.options.reduce(
+				const totalVotes = this.options.reduce(
 					(prev, next) => prev.votes + next.votes
 				);
-				console.log('Total votes: ' + totalVotes);
+				console.log('Total votes: ', this.options[1].votes, totalVotes);
 				this.$store.dispatch('setTotalVotes', totalVotes);
 
 				this.showChart();

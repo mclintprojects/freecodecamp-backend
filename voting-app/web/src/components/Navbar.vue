@@ -41,7 +41,9 @@ export default {
 		};
 	},
 	methods: {
-		logout() {}
+		logout() {
+			this.$store.dispatch('logout');
+		}
 	},
 	computed: {
 		userLoggedIn() {
