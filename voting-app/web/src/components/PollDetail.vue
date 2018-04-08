@@ -1,7 +1,6 @@
 <template>
   <div class="app-container">
       <loader :isLoading="isLoading"></loader>
-      <br>
       <div class="container" v-if="poll != null">
 		<button class="app-btn app-btn-delete" v-if="isAuthor" @click="deletePoll" :disabled="isLoading">Delete poll</button>
 		<a class="app-btn app-btn-tweet" :href="getShareLink()">Tweet poll</a>
