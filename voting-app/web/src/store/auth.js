@@ -60,7 +60,7 @@ const actions = {
     let json = localStorage.getItem('auth');
     if (json) {
       let auth = JSON.parse(json);
-      context.dispatch('login', auth);
+      context.commit('login', auth);
     }
   },
   register(context, loginData) {

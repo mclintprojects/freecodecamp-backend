@@ -58,7 +58,10 @@ body {
 	border-radius: 5px;
 	color: white;
 	padding: 8px;
-	width: 100px;
+}
+
+.app-btn:hover {
+	background-color: #2b363b;
 }
 
 .app-btn:disabled {
