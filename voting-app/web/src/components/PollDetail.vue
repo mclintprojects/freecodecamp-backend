@@ -3,8 +3,8 @@
       <loader :isLoading="isLoading"></loader>
       <div class="container" v-if="poll != null">
 		<button class="app-btn app-btn-delete" v-if="isAuthor" @click="deletePoll" :disabled="isLoading">Delete poll</button>
-		<br>
 		<a class="app-btn app-btn-tweet" :href="getShareLink()">Tweet poll</a>
+		<br>
         <p id="lbl-question">{{poll.question}}</p>
         <div class="poll-details">
         <p class="text-small text-secondary">by {{poll.author}}</p>
