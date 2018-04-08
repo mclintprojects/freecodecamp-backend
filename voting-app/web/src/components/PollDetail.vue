@@ -81,15 +81,18 @@ export default {
 				let response = await axios.get(`/polls/${pollId}/options`);
 				this.$store.dispatch('setOptions', response.data);
 
-				const totalVotes = this.options.reduce(
-					(prev, next) => prev.votes + next.votes
-				);
-				console.log('Total votes: ', this.options[1].votes, totalVotes);
+				let totalVotes = 0;
+				for (let index = 0; index < this.options.length; index++) {
+					totalVotes += this.options[index].votes;
+				}
 				this.$store.dispatch('setTotalVotes', totalVotes);
 
 				this.showChart();
 			} catch (error) {
-				console.log(error);
+				eventbus.showToast(
+					`Couldn't get polls. Please reload the page.`,
+					'error'
+				);
 			}
 		},
 		getDate(millis) {
@@ -135,7 +138,6 @@ export default {
 				eventbus.showToast('Successfully deleted poll.', 'success');
 				this.$router.go(-1);
 			} catch (error) {
-				console.log(error);
 				eventbus.showToast('Deleting poll failed. Please retry.', 'error');
 			}
 			this.isLoading = false;

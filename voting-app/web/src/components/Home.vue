@@ -3,7 +3,7 @@
 		<p class="empty-state" v-if="this.polls.length === 0">No polls added yet</p>
     <loader :isLoading="isLoading"></loader>
     <div class="banner">
-      <h1>Voting app</h1>
+      <h1>Polly</h1>
       <p>Below are the polls hosted on this app</p>
 			<button v-if="this.$store.getters.userLoggedIn" class="app-btn" @click="newPoll">New poll</button>
     </div>

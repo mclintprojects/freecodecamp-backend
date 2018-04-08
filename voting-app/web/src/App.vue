@@ -20,7 +20,6 @@ export default {
 	},
 	methods: {
 		getPolls() {
-			console.log('App created');
 			this.$store.dispatch('getPolls');
 		}
 	}
