@@ -25,7 +25,10 @@ export default {
 	props: ['option', 'pollId', 'totalVotes', 'index'],
 	methods: {
 		getPercentage() {
-			return `${this.option.votes / this.totalVotes * 100}%`;
+			if (this.totalVotes > 0)
+				return `${this.option.votes / this.totalVotes * 100}%`;
+
+			return '0%';
 		},
 		async voteForOption() {
 			try {

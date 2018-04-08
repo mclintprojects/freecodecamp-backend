@@ -29,6 +29,7 @@
 
 <script>
 import Loader from './Loader';
+import axios from 'axios';
 
 export default {
 	data() {
@@ -58,6 +59,9 @@ export default {
 		removeOption(index) {
 			this.placeholders.splice(index, 1);
 			this.options.splice(index, 1);
+		},
+		async createPoll() {
+			let response = axios.post({});
 		}
 	}
 };
